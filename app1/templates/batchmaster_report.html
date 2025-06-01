@@ -1,0 +1,46 @@
+{% extends "home2.html" %}
+
+{% block content %}
+<div style="text-align: center;  background-color: rgba(255, 255, 255, 0.95); padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); margin: auto; max-width: 800px;">
+    <h2>Report for Batch Master</h2>
+
+    <form method="POST" style="margin-bottom: 20px;">
+        {% csrf_token %}
+        <input type="text" name="search_value" placeholder="Enter Batch No" style="padding: 5px; margin: 10px;">
+        <button type="submit" style="padding: 5px 10px; background-color: #007bff; color: white; border: none; border-radius: 5px;">Search</button>
+    </form>
+
+    {% if error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+    {% endif %}
+
+    <h3>Results:</h3>
+    <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+        <thead>
+            <tr style="background-color: #f2f2f2;">
+                <th style="border: 1px solid #ddd; padding: 8px;">Batch No</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Batch ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for batch in batches %}
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;">{{ batch.batchNo }}</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">{{ batch.batchId }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="2" style="border: 1px solid #ddd; padding: 8px; text-align: center;">No batches found.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <br>
+    <button onclick="window.print();" style="padding: 5px 10px; background-color: #28a745; color: white; border: none; border-radius: 5px;">Print Report</button>
+
+    <a href="{% url 'batchmaster_report' %}" style="padding: 10px 15px; background-color: #007bff; color: white; border-radius: 5px; text-decoration: none;">View All Records</a>
+    <a href="{% url 'batchmaster_list' %}" style="padding: 10px 15px; background-color: #007bff; color: white; border-radius: 5px; text-decoration: none;">Back</a>
+</div>
+{% endblock %}
+

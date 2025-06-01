@@ -1,0 +1,50 @@
+{% extends "home.html" %}
+
+{% block content %}
+<div style="text-align: center; background-color: rgba(255, 255, 255, 0.95); padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); margin: auto; max-width: 800px;">
+    <h2 style="margin-bottom: 20px; color: #007bff;">Transaction List</h2>
+
+    <!-- Search form -->
+    <form method="get" style="margin-bottom: 20px;">
+        <input type="text" name="q" placeholder="Search..." value="{{ request.GET.q }}" style="padding: 10px; width: 70%; border-radius: 5px; border: 1px solid #ccc;">
+        <button type="submit" style="padding: 10px; background-color: rgb(0, 183, 33); color: white; border-radius: 5px; border: none;">Search</button>
+    </form>
+
+    <!-- Action buttons -->
+    <div style="margin-bottom: 20px;">
+        <a href="{% url 'transaction_create' %}" style="padding: 10px 15px; background-color: rgb(0, 183, 33); color: white; border-radius: 5px; text-decoration: none; margin-right: 10px;">Create Transaction</a>
+        <a href="{% url 'transaction_report' %}" style="padding: 10px 15px; background-color: #007bff; color: white; border-radius: 5px; text-decoration: none;">Download Report</a>
+    </div>
+
+    <!-- Transaction table -->
+    <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+        <thead>
+            <tr>
+                <th style="padding: 10px; background-color: #f7f7f7; border-bottom: 1px solid #ccc;">Student</th>
+                <th style="padding: 10px; background-color: #f7f7f7; border-bottom: 1px solid #ccc;">Batch No</th>
+                <th style="padding: 10px; background-color: #f7f7f7; border-bottom: 1px solid #ccc;">Semester</th>
+                <th style="padding: 10px; background-color: #f7f7f7; border-bottom: 1px solid #ccc;">Marks</th>
+                <th style="padding: 10px; background-color: #f7f7f7; border-bottom: 1px solid #ccc;">Issue Date</th>
+                <th style="padding: 10px; background-color: #f7f7f7; border-bottom: 1px solid #ccc;">Status</th>
+                <th style="padding: 10px; background-color: #f7f7f7; border-bottom: 1px solid #ccc;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+                 {% for transaction in transactions %}
+            <tr>
+                <td style="padding: 10px; border-bottom: 1px solid #ccc;">{{ transaction.student.studentName }}</td>
+                <td style="padding: 10px; border-bottom: 1px solid #ccc;">{{ transaction.batchNo.batchId }}</td>
+                <td style="padding: 10px; border-bottom: 1px solid #ccc;">{{ transaction.semester.semester }}</td>
+                <td style="padding: 10px; border-bottom: 1px solid #ccc;">{{ transaction.marks }}</td>
+                <td style="padding: 10px; border-bottom: 1px solid #ccc;">{{ transaction.issueDate }}</td>
+                <td style="padding: 10px; border-bottom: 1px solid #ccc;">{{ transaction.status }}</td>
+                <td style="padding: 10px; border-bottom: 1px solid #ccc;">
+                    <a href="{% url 'transaction_update' transaction.pk %}" style="text-decoration: none; color: #007bff;">Edit</a> | 
+                    <a href="{% url 'transaction_delete' transaction.pk %}" style="text-decoration: none; color: red;">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

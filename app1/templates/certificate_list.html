@@ -1,0 +1,34 @@
+{% extends  "home.html"  %}
+{% block content %}
+<div style="text-align: center;  background-color: rgba(255, 255, 255, 0.95); padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); margin: auto; max-width: 800px;">
+<h2>Certificates</h2>
+<a href="{% url 'certificate_create' %}" style="padding: 10px 15px; background-color: #00eeffc1; color: rgb(22, 22, 22); border-radius: 5px; text-decoration: none;">Add New Certificate</a>
+<form method="get" action="{% url 'certificate_search' %}" style="margin: 20px 0;">
+    <input type="text" name="q" placeholder="Search certificates..." style="padding: 5px; border: 1px solid #ccc; border-radius: 5px;">
+    <button type="submit"  style="padding: 5px 10px; background-color: #00f2ffcb; color: rgb(15, 14, 14); border: none; border-radius: 5px;">Search</button>
+<table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+    <thead>
+        <tr style="background-color: #fdffffd4; color: rgb(7, 6, 6);">
+            <th style="padding: 10px; border: 1px solid #ddd;">Student</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">Certificate Type</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">Status</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">Issue Date</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for certificate in certificates %}
+        <tr>
+            <td style="padding: 10px; border: 1px solid #ddd;">{{ certificate.student.studentName }}</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">{{ certificate.certificateType }}</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">{{ certificate.status }}</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">{{ certificate.issueDate }}</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">
+                <a href="{% url 'certificate_update' certificate.pk %}" style="padding: 5px 10px; background-color: rgb(44, 131, 255); color: white; border-radius: 5px; text-decoration: none;">Edit</a>
+                <a href="{% url 'certificate_delete' certificate.pk %}" style="padding: 5px 10px; background-color: rgb(255, 61, 45); color: white; border-radius: 5px; text-decoration: none;" onclick="return confirm('Are you sure you want to delete this batch?');">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

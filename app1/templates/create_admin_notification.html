@@ -1,0 +1,15 @@
+{% extends 'home.html' %}
+
+{% block content %}
+<h2>Admin Notifications</h2>
+<a href="{% url 'create_admin_notification' %}">Create New Notification</a>
+<ul>
+    {% for notification in notifications %}
+    <li>
+        {{ notification.user.username }} - {{ notification.message }} 
+        <a href="{% url 'edit_admin_notification' notification.pk %}">Edit</a>
+        <a href="{% url 'delete_admin_notification' notification.pk %}">Delete</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

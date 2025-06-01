@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Admin Dashboard</h2>
+        <ul>
+            {% for request in password_reset_requests %}
+                <li>
+                    {{ request.user.username }} - 
+                    <a href="{% url 'admin_remove_password' request.user.id %}">Remove Password</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

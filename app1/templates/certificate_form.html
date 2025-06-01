@@ -1,0 +1,24 @@
+{% extends "home.html" %}
+
+{% block content %}
+<div style="text-align: center; background-color: rgba(255, 255, 255, 0.95); padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); margin: auto; max-width: 800px;">
+    <h2>Create/Update Certificate</h2>
+
+    <form method="post" style="margin-top: 20px;">
+        {% csrf_token %}
+        <table style="width: 100%; border-collapse: collapse; margin: auto;">
+            {% for field in form %}
+            <tr>
+                <td style="text-align: right; padding: 10px; font-weight: bold;">{{ field.label_tag }}</td>
+                <td style="padding: 10px;">{{ field }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <br>
+        <button type="submit" style="padding: 10px 15px; background-color: rgb(0, 183, 33); color: rgb(15, 14, 14); border: none; border-radius: 5px;">Save</button>
+    </form>
+
+    <br>
+    <a href="{% url 'certificate_list' %}" style="padding: 10px 15px; background-color: #007bffc5; color: white; border-radius: 5px; text-decoration: none;">Back to List</a>
+</div>
+{% endblock %}

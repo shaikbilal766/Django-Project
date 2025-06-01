@@ -1,0 +1,15 @@
+{% extends "home.html" %}
+
+{% block content %}
+<div style="text-align: center; background-color: rgba(255, 255, 255, 0.95); padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); margin: auto; max-width: 600px;">
+    <h2 style="margin-bottom: 20px; color: red;">Delete Transaction</h2>
+
+    <p>Are you sure you want to delete the transaction for <strong>{{ transaction.student.studentName }}</strong>?</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" style="padding: 10px 15px; background-color: red; color: white; border-radius: 5px; border: none;">Yes, Delete</button>
+        <a href="{% url 'transaction_list' %}" style="padding: 10px 15px; background-color: #007bff; color: white; border-radius: 5px; text-decoration: none;">Cancel</a>
+    </form>
+</div>
+{% endblock %}

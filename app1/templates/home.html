@@ -1,0 +1,246 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        body {
+            background: url('{% static "img/cap.jpeg" %}') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333; /* Text color */
+        }
+
+        /* Ensure header stays fixed at the top */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7); /* Darker background for contrast */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000; /* Ensure header stays on top */
+        }
+
+        /* Ensure logo image dimensions */
+        .logo img {
+            max-height: 80px;
+            margin-right: 20px;
+        }
+
+        /* Center title text */
+        .title {
+            flex-grow: 1;
+            text-align: center;
+            color: #fff; /* Title color */
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* Ensure nav stays below header */
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #444; /* Darker nav background */
+            margin-top: 220px; /* Push content below fixed header and login box */
+            position: sticky;
+            top: 180px; /* Position right below the login box */
+            width: 100%;
+            z-index: 999; /* Ensure it stays on top of the page content */
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav li {
+            position: relative;
+        }
+
+        /* Styling nav links */
+        nav a {
+            display: block;
+            color: #f0f0f0; /* Light color for links */
+            padding: 14px 20px;
+            text-decoration: none;
+            font-weight: bold;
+            text-align: center;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        /* Hover effect */
+        nav a:hover {
+            background-color: #555; /* Hover effect */
+            transform: translateY(-2px); /* Slight lift on hover */
+        }
+
+        /* Dropdown content */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #6ef6f69f; /* White background for dropdown */
+            min-width: 220px; /* Set width for dropdown */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.407);
+            z-index: 1;
+            border-radius: 5px; /* Rounded corners */
+            margin-top: 1px;
+            padding: 5px 0;
+            max-height: 300px; /* Set max height for dropdown */
+            overflow-y: auto; /* Enable vertical scroll when content overflows */
+        }
+
+        .dropdown-content a {
+            color: #333; /* Text color for dropdown */
+            padding: 10px 15px; /* Padding for dropdown items */
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f0f0f0; /* Light grey on hover */
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Submenu styles */
+        .submenu {
+            display: none;
+            position: absolute;
+            left: 100%; /* Position to the right of the parent */
+            top: 0;     /* Align top with parent */
+            background-color: #fff; /* White background for submenu */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            border-radius: 5px; /* Rounded corners */
+            min-width: 180px; /* Set width for submenu */
+            z-index: 2; /* Ensure submenu is on top */
+        }
+
+        nav li:hover .submenu {
+            display: block; /* Show submenu on hover */
+        }
+
+        /* Committee Constitution Scroll */
+        .committee-constitution {
+            max-height: 200px; /* Set max height for scrolling */
+            overflow-y: auto; /* Enable vertical scroll */
+            padding: 5px; /* Padding for the scroll container */
+        }
+
+        .committee-constitution a {
+            padding: 10px 15px; /* Padding for dropdown items */
+        }
+
+        /* Style for the container to hold login details aligned left and fixed */
+        .pro-container {
+	position:fixed;
+        left: 0;
+        top: 124px; /* Adjust based on how far down you want it from the top */
+        padding: 5px; /* Increased padding for more spacing */
+        font-size: 18px; 
+	color: #ffff;
+	background-color: rgba(255, 99, 71, 0.7);
+        width: 1400px; /* Increased width */
+        z-index: 1001; /* Ensure it appears above other elements */
+    }
+
+        .left-login-container p {
+            margin: 0;
+            font-size: 20px; /* Increased font size */
+            color: #333; /* Text color */
+            font-weight: bold;
+    }
+    </style>
+</head>
+<body>
+    <!-- Fixed header -->
+    <header>
+        
+        <div class="logo">
+            <img src="{% static 'img/logo.png' %}" alt="Logo">
+        </div>
+    </header>
+
+    <!-- Login details aligned to the left and fixed -->
+    <div class="pro-container"><marquee><b>
+       BATCH WISE SEMESTER CERTIFIED MANAGEMENT SYSTEM
+	</marquee></b>
+    </div>
+
+    <!-- Sticky navigation menu below the login details -->
+    <nav>
+        <ul>
+            <li class="dropdown">
+                <a href="#">Admin Panel</a>
+                <div class="dropdown-content">
+                    <a href="{% url 'admin_notifications' %}">Admin Notifications</a>
+                    <a href="{% url 'manage_password_reset_requests' %}">Password Reset Requests</a>
+                    
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#">Master</a>
+                <div class="dropdown-content">
+	
+                    <a href="{% url 'batchmaster_list' %}">Batch Master</a>
+                    <a href="{% url 'semester_list' %}">Semester Master</a>
+                    <a href="{% url 'student_list' %}">Student Master</a>
+	    <a href="{% url 'transaction_list' %}">Transaction Master</a>
+                    
+                </div>
+            </li>
+            <li class="dropdown">
+                
+                    
+
+                         
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#">Certificate</a>
+                <div class="dropdown-content">
+		    <a href="{% url 'certificate_list' %}">Certificate Status</a>
+		    
+
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#">Report</a>
+                <div class="dropdown-content">
+                    <a href="{% url 'batchmaster_report' %}">Batch Report</a>
+                    <a href="{% url 'semester_report' %}">Semester Report</a>
+                    <a href="{% url 'student_report_all' %}">Student Report</a>
+                    <a href="{% url 'certificate_report' %}">Certificate Report</a>
+                     <a href="{% url 'transaction_report' %}">Transaction Report</a>
+                    
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#">Backup/Restore</a>
+                <div class="dropdown-content">
+                    <a href="{% url 'backup_data' %}">Backup Data</a>
+		    <a href="{% url 'restore_data' %}">Restore Data</a>
+                </div>
+            </li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </nav>
+    
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

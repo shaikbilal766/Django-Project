@@ -1,0 +1,54 @@
+{% extends "home.html" %}
+
+{% block content %}
+<div style="text-align: center; background-color: rgba(255, 255, 255, 0.95); padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); margin: auto; max-width: 1000px;">
+    <h2>Student List</h2>
+
+    <!-- Link to create a new student -->
+    <a href="{% url 'student_create' %}" style="padding: 10px 15px; background-color: #00f7ff67; color: rgb(8, 8, 8); border-radius: 5px; text-decoration: none;">Add New Student</a>
+    
+    <!-- Search form -->
+    <form method="GET" action="{% url 'student_search' %}" style="margin: 20px 0;">
+        <input type="text" name="q" placeholder="Search by Registration No or Name" style="padding: 5px; border: 1px solid #ccc; border-radius: 5px;">
+        <button type="submit" style="padding: 5px 10px; background-color: #00f7ff6e; color: rgb(17, 16, 16); border: none; border-radius: 5px;">Search</button>
+    </form>
+
+    <!-- Display list of students in a table -->
+    <table style="width: 100%; border-collapse: collapse; margin-top: 20px;text-align: left;">
+        <thead>
+            <tr style="background-color: #fdfdfd; color: rgb(12, 12, 12);">
+                <th style="padding: 10px; border: 1px solid #ddd;">Registration No</th>
+                <th style="padding: 10px; border: 1px solid #ddd;">Batch No</th>
+                <th style="padding: 10px; border: 1px solid #ddd;">Semester</th>
+                <th style="padding: 10px; border: 1px solid #ddd;">Name</th>
+                <th style="padding: 10px; border: 1px solid #ddd;">Mobile No</th>
+                <th style="padding: 10px; border: 1px solid #ddd;">Email</th>
+                <th style="padding: 10px; border: 1px solid #ddd;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd;">{{ student.studentRegNo }}</td>
+                <td style="padding: 10px; border: 1px solid #ddd;">{{ student.batchNo }}</td>
+                <td style="padding: 10px; border: 1px solid #ddd;">{{ student.sem }}</td>
+                <td style="padding: 10px; border: 1px solid #ddd;">{{ student.studentName }}</td>
+                <td style="padding: 10px; border: 1px solid #ddd;">{{ student.studentMobile }}</td>
+                <td style="padding: 10px; border: 1px solid #ddd;">{{ student.studentEmail }}</td>
+                <td style="padding: 10px; border: 1px solid #ddd;">
+                    <a href="{% url 'student_update' student.pk %}" style="padding: 5px 10px; background-color: rgb(44, 131, 255); color: white; border-radius: 5px; text-decoration: none;">Edit</a>
+                    <a href="{% url 'student_delete' student.pk %}" style="padding: 5px 10px; background-color: rgb(255, 61, 45); color: white; border-radius: 5px; text-decoration: none;" onclick="return confirm('Are you sure you want to delete this student?');">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7" style="padding: 10px; border: 1px solid #ddd;">No students found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <br>
+    <a href="{% url 'home' %}" style="padding: 10px 15px; background-color: #05bcfff0; color: rgb(18, 17, 17); border-radius: 5px; text-decoration: none;">Back</a>
+</div>
+{% endblock %}

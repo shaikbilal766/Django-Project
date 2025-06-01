@@ -1,0 +1,17 @@
+Model,Field Names,Data
+BatchMaster,2020-2022,1
+BatchMaster,2021-2023,2
+BatchMaster,2022-2024,3
+BatchMaster,2023-2025,4
+BatchMaster,2028-2030,54
+BatchMaster,2027-2029,66
+BatchMaster,2025-2027,55
+SemesterMaster,I,1
+SemesterMaster,II,2
+SemesterMaster,III,3
+SemesterMaster,IV,4
+StudentMaster,MOHAN,2723166,8340867383,Reddysr@gmail.com,MCA
+StudentMaster,s bilal,2723162,7661876991,Bilal@gmail.com,MCA
+CertificateMaster,MOHAN,completion,2023-04-07,Issued
+CertificateMaster,s bilal,completion,2023-04-07,Pending
+CertificateMaster,MOHAN,completion,2023-04-07,Issued

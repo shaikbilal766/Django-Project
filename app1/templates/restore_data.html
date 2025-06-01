@@ -1,0 +1,36 @@
+{% extends 'home.html' %}
+{% block content %}
+<div style="text-align: center; background-color: rgba(255, 255, 255, 0.95); padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); margin: auto; max-width: 800px;">
+    <h2>Restore Data</h2>
+    <form method="post" enctype="multipart/form-data" style="margin: 20px 0;">
+        {% csrf_token %}
+        <table style="width: 100%; border-collapse: collapse; margin: auto;">
+            <tbody>
+                <tr>
+                    <td style="padding: 10px; text-align: right; font-weight: bold; border: none;">Select File:</td>
+                    <td style="padding: 10px; text-align: left; border: none;">
+                        <input type="file" name="restore_file" accept=".csv" required style="padding: 5px; border: 1px solid #ccc; border-radius: 5px; width: 100%;">
+                    </td>
+                </tr>
+		<tr>
+		<div>
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li class="message {{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+		</tr>
+                <tr>
+                    <td colspan="2" style="padding: 10px; text-align: center; border: none;">
+                        <button type="submit" style="padding: 10px 20px; background-color: #00f2ffcb; color: rgb(15, 14, 14); border: none; border-radius: 5px;">Restore</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <a href="{% url 'home' %}" style="padding: 10px 15px; background-color: #00eeffc1; color: rgb(22, 22, 22); border-radius: 5px; text-decoration: none;">Back to Home</a>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "home.html" %}
+
+{% block content %}
+<div style="text-align: center; background-color: white; border: 1px solid #ccc; padding: 20px; border-radius: 5px;">
+    <h2 style="color: #dc3545;">Confirm Delete</h2>
+    <p>Are you sure you want to delete Semester {{ semester.semester }} - {{ semester.semesterId }}?</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" style="padding: 10px 15px; background-color: #ff4d4d; color: white; border-radius: 5px; border: none; cursor: pointer;">Confirm Delete</button>
+   
+    <a href="{% url 'semester_list' %}" style="padding: 10px 15px; background-color: #007bff; color: white; border-radius: 5px; text-decoration: none;">Cancel</a>
+
+</form>
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "home.html" %}
+
+{% block content %}
+<div style="text-align: center; background-color: rgba(255, 255, 255, 0.95); padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); margin: auto; max-width: 600px;">
+    <h2 style="margin-bottom: 20px; color: #007bff;">
+        {% if form.instance.pk %}
+            Update Semester
+        {% else %}
+            Create Semester
+        {% endif %}
+    </h2>
+
+    <!-- Display non-field errors -->
+    {% if form.non_field_errors %}
+        <div style="color: red; margin-bottom: 20px;">{{ form.non_field_errors }}</div>
+    {% endif %}
+
+    <!-- Form to create or update a semester -->
+    <form method="POST" style="margin: 20px 0;">
+        {% csrf_token %}
+        <div style="display: flex; flex-direction: column; align-items: center;">
+
+            <!-- Loop through the form fields -->
+            {% for field in form %}
+            <div style="margin-bottom: 15px; width: 100%;">
+                <label style="text-align: left; font-weight: bold;">{{ field.label }}</label>
+                {{ field }}  <!-- Render the field -->
+                {% for error in field.errors %}
+                <div style="color: red; font-size: 12px;">{{ error }}</div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Save button -->
+        <button type="submit" style="padding: 10px 15px; background-color: rgb(0, 183, 33); color: white; border-radius: 5px; border: none; cursor: pointer;">Save</button>
+
+    <!-- Back button -->
+    <a href="{% url 'semester_list' %}" style="padding: 10px 15px; background-color: #007bff; color: white; border-radius: 5px; text-decoration: none;">Back</a>
+</form>
+</div>
+{% endblock %}

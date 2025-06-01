@@ -1,0 +1,116 @@
+{% extends 'home.html' %}
+
+{% block content %}
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f4f8; /* Background color of the page */
+            color: #333;
+        }
+
+        .notifications-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background-color: #ffffff; /* White background for the notifications section */
+            border-radius: 12px; /* Rounded corners */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow effect */
+            max-width: 700px; /* Limit the width */
+            width: 100%; /* Full width */
+            margin: 0 auto; /* Center horizontally */
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        .notification-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            width: 100%; /* Use full width */
+        }
+
+        .notification-list li {
+            padding: 20px;
+            border-bottom: 1px solid #e2e2e2;
+            transition: background-color 0.3s ease;
+        }
+
+        .notification-list li:hover {
+            background-color: #f9f9f9;
+        }
+
+        .notification-list li:last-child {
+            border-bottom: none;
+        }
+
+        .notification {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .notification-user {
+            font-weight: bold;
+            color: #2980b9;
+        }
+
+        .notification-message {
+            flex-grow: 1;
+            margin: 0 10px;
+            color: #34495e;
+        }
+
+        .notification-time {
+            font-size: 0.85em;
+            color: #7f8c8d;
+            white-space: nowrap; /* Prevent text wrapping */
+        }
+
+        .no-notifications {
+            text-align: center;
+            padding: 15px;
+            color: #999;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 28px;
+            }
+
+            .notification-list {
+                width: 90%; /* Adjust width for mobile */
+                padding: 10px;
+            }
+
+            .notification-time {
+                font-size: 0.75em; /* Smaller font for mobile */
+            }
+        }
+    </style>
+
+    <div class="notifications-container">
+        <h1>Admin Notifications</h1>
+        <ul class="notification-list">
+            {% for notification in notifications %}
+                <li>
+                    <div class="notification">
+                        <span class="notification-user">{{ notification.user }}</span>
+                        <span class="notification-message">{{ notification.message }}</span>
+                        <span class="notification-time">{{ notification.created_at }}</span>
+                    </div>
+                </li>
+            {% empty %}
+                <li class="no-notifications">No notifications available.</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

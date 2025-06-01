@@ -1,0 +1,87 @@
+{% extends 'home.html' %}
+
+{% block content %}
+    <style>
+        /* Styles scoped within the content wrapper */
+        .notification-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 30vh; /* Vertically center the content */
+            text-align: center;
+        }
+
+        .notification-container h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333; /* Darker text color for readability */
+        }
+
+        /* Center the notification list */
+        .notification-container ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px 0;
+            width: 100%; /* Ensure responsiveness */
+            max-width: 600px; /* Limit the width */
+        }
+
+        .notification-container ul li {
+            background-color: #f8f8f8;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .notification-container a {
+            text-decoration: none;
+            color: #007bff; /* Blue link color */
+            margin-left: 10px;
+        }
+
+        .notification-container a:hover {
+            text-decoration: underline;
+        }
+
+        /* Style for the "Create New Notification" button */
+        .notification-container .create-btn {
+            margin-bottom: 20px;
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+
+        .notification-container .create-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+
+    <div class="notification-container">
+        <h2>Admin Notifications</h2>
+        <a class="create-btn" href="{% url 'create_admin_notification' %}">Create New Notification</a>
+        
+        <ul>
+            {% for notification in notifications %}
+            <li>
+                <span>{{ notification.user.username }} - {{ notification.message }}</span>
+                <div>
+                    <a href="{% url 'edit_admin_notification' notification.pk %}">Edit</a>
+                    <a href="{% url 'delete_admin_notification' notification.pk %}">Delete</a>
+                </div>
+            </li>
+            {% empty %}
+            <li>No notifications available.</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

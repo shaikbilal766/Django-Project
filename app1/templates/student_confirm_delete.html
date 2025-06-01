@@ -1,0 +1,16 @@
+{% extends "home.html" %}
+
+{% block content %}
+<div style="text-align: center; background-color: white; border: 1px solid #ccc; padding: 20px; border-radius: 5px;">
+    <h2>Confirm Delete</h2>
+    <p>Are you sure you want to delete Student {{ student.studentName }} (ID: {{ student.studentRegNo }})?</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" style="padding: 10px 15px; background-color: #ff4d4d; color: white; border-radius: 5px;">Confirm Delete</button>
+    </form>
+
+    <br>
+    <a href="{% url 'student_list' %}" style="padding: 10px 15px; background-color: #007bff; color: white; border-radius: 5px; text-decoration: none;">Cancel</a>
+</div>
+{% endblock %}

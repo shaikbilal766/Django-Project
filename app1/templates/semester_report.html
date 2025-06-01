@@ -1,0 +1,32 @@
+{% extends "home2.html" %}
+
+{% block content %}
+<div style="text-align: center; background-color: rgba(255, 255, 255, 0.95); padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); margin: auto; max-width: 800px;">
+    <h2>Report For Semester Master</h2>
+    <p>Date and Time: {{ current_time|date:"D, d M Y H:i:s" }}</p>
+    <table style="margin: auto; border-collapse: collapse; width: 80%;">
+        <thead>
+            <tr>
+                <th style="border: 1px solid #ccc; padding: 8px;">Semester</th>
+                <th style="border: 1px solid #ccc; padding: 8px;">Semester ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for semester in semesters %}
+            <tr>
+                <td style="border: 1px solid #ccc; padding: 8px;">{{ semester.semester }}</td>
+                <td style="border: 1px solid #ccc; padding: 8px;">{{ semester.semesterId }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="2" style="border: 1px solid #ccc; padding: 8px; text-align: center;">No records found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <a href="{% url 'semester_list' %}" style="padding: 10px 15px; background-color: #007bff; color: white; border-radius: 5px; text-decoration: none;">Back to Semester List</a>
+    <button onclick="window.print();" style="padding: 10px 15px; background-color: #28a745; color: white; border-radius: 5px; border: none;">Print Report</button>
+</div>
+
+{% endblock %}

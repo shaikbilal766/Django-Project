@@ -1,0 +1,95 @@
+{% extends "home2.html" %}
+
+{% block content %}
+<div style="padding: 20px; background-color: rgba(255, 255, 255, 0.95); margin: auto; max-width: 1200px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+    <h2 style="text-align: center;">Anti-Ragging Committee - Transaction Report</h2>
+
+    <!-- Display current date -->
+    <p align="right" ><strong>Date:</strong> {{ current_time|date:"d M Y" }}</p>
+
+    <!-- Display year if provided -->
+    {% if batch_id %}
+    <p><strong>Batch ID:</strong> {{ batch_id }}</p>
+    {% endif %}
+    
+    <p>The Anti-Ragging Committee aims to ensure a safe campus environment by taking strict action against ragging. The committee meets monthly to review incidents and implement preventive measures for the academic year {{ batch_id|default:"N/A" }}.</p>
+<!-- Batch selection form -->
+<form method="GET" action="" class="no-print" style="margin-bottom: 20px;">
+    <label for="batchID">Select Batch:</label>
+    <select name="batchID" id="batchID" style="padding: 5px; border-radius: 4px; border: 1px solid #ddd;">
+        <option value="">All Batches</option>
+        {% for batch in all_batches %}
+        <option value="{{ batch }}" {% if batch == batch_id %}selected{% endif %}>{{ batch }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit" style="padding: 5px 10px; background-color: #007bff; color: white; border: none; border-radius: 4px;">Filter</button>
+</form>
+    <!-- Transactions Table -->
+    {% if transactions %}
+    <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+        <thead>
+            <tr style="background-color: #f9f9f9;">
+                <th style="padding: 10px; border: 1px solid #ddd;">Name</th>
+                <th style="padding: 10px; border: 1px solid #ddd;">Designation</th>
+                <th style="padding: 10px; border: 1px solid #ddd;">Committee Designation</th>
+                <th style="padding: 10px; border: 1px solid #ddd;">Batch ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaction in transactions %}
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd;">{{ transaction.Name }}</td>
+                <td style="padding: 10px; border: 1px solid #ddd;">{{ transaction.designation }}</td>
+                <td style="padding: 10px; border: 1px solid #ddd;">{{ transaction.committeeDesignation }}</td>
+                <td style="padding: 10px; border: 1px solid #ddd;">{{ transaction.batchID }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Pagination Controls -->
+    <div style="margin-top: 20px; text-align: center;">
+        <div class="pagination no-print">
+            {% if transactions.has_previous %}
+            <a href="?page={{ transactions.previous_page_number }}{% if batch_id %}&batchID={{ batch_id }}{% endif %}" style="padding: 5px 10px; border: 1px solid #ddd; text-decoration: none;">&laquo; Previous</a>
+            {% endif %}
+            <span style="margin: 0 10px;">Page {{ transactions.number }} of {{ transactions.paginator.num_pages }}</span>
+            {% if transactions.has_next %}
+            <a href="?page={{ transactions.next_page_number }}{% if batch_id %}&batchID={{ batch_id }}{% endif %}" style="padding: 5px 10px; border: 1px solid #ddd; text-decoration: none;">Next &raquo;</a>
+            {% endif %}
+        </div>
+    </div>
+    {% else %}
+    <p style="color: red; text-align: center; margin-top: 20px;">No transactions found for the selected batch.</p>
+    {% endif %}
+
+    <!-- Back to Home Button -->
+    <a href="{% url 'home' %}" class="no-print" style="margin-top: 20px; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; display: inline-block;">Back to Home</a>
+    
+    <!-- Print button -->
+    <button onclick="window.print();" class="no-print" style="padding: 10px 15px; background-color: #28a745; color: white; border: none; border-radius: 5px; margin-top: 20px;">Print</button>
+
+</div>
+{% endblock %}
+
+<!-- Print-Specific Styles -->
+<style>
+    @media print {
+        body {
+            font-size: 12px;
+            color: black;
+        }
+        .no-print {
+            display: none;
+        }
+        table {
+            width: 100%;
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 5px;
+            border: 1px solid black;
+        }
+    }
+</style>

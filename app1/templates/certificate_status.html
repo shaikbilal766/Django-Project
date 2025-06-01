@@ -1,0 +1,8 @@
+{% extends "home.html" %}
+
+{% block content %}
+  <h2>Certificate Status for {{ certificate.student.studentName }}</h2>
+  <p>Status: {{ certificate.status }}</p>
+  <p>Issue Date: {{ certificate.issue_date }}</p>
+  <p><a href="{{ certificate.certificate_file.url }}">Download Certificate</a></p>
+{% endblock %}
